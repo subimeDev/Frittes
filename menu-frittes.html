@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frittes Maison — Menú Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #FFD23F;
+    --yellow-light: #FFE580;
+    --yellow-dark: #F0C030;
+    --green: #4A9B6F;
+    --green-dark: #3A7B5F;
+    --green-light: #6FBD92;
+    --cream: #FFF8E7;
+    --cream-dark: #F5EDD0;
+    --black: #1A1A1A;
+    --gray: #5A5A5A;
+    --gray-light: #E0E0E0;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-light) 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: var(--yellow-light);
+    opacity: 0.5;
+    top: -200px;
+    right: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: var(--yellow-dark);
+    opacity: 0.3;
+    bottom: -150px;
+    left: -80px;
+    animation: float 6s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--black);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .hero-logo {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 6rem);
+    font-weight: 700;
+    color: var(--black);
+    line-height: 0.95;
+    margin-bottom: 0.5rem;
+    animation: slideDown 1s ease;
+  }
+
+  .hero-subtitle {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--green);
+    margin-bottom: 2rem;
+    animation: slideDown 1s ease 0.2s backwards;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 50px;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 15px rgba(74, 155, 111, 0.3);
+    animation: slideDown 1s ease 0.4s backwards;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    background: var(--black);
+    color: var(--yellow);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    animation: slideDown 1s ease 0.6s backwards;
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .hero-delivery {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: var(--gray);
+    animation: slideDown 1s ease 0.8s backwards;
+  }
+  .hero-delivery a {
+    color: var(--green);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* CONTROL BAR */
+  .control-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 1rem 1.5rem;
+  }
+
+  .control-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .search-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray);
+    font-size: 1.2rem;
+  }
+
+  .search-input {
+    width: 100%;
+    background: var(--cream);
+    border: 2px solid transparent;
+    padding: 0.9rem 1rem 0.9rem 3rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .search-input:focus {
+    outline: none;
+    border-color: var(--yellow);
+    background: var(--white);
+  }
+  .search-input::placeholder { color: var(--gray); }
+
+  .filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-chip {
+    background: var(--white);
+    border: 2px solid var(--gray-light);
+    color: var(--black);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .filter-chip:hover {
+    border-color: var(--yellow);
+    transform: translateY(-2px);
+  }
+  .filter-chip.active {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+  }
+
+  .category-tabs {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--yellow) transparent;
+  }
+  .category-tabs::-webkit-scrollbar { height: 4px; }
+  .category-tabs::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+  .cat-tab {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gray);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+  .cat-tab:hover,
+  .cat-tab.active {
+    background: var(--yellow);
+    color: var(--black);
+  }
+
+  /* MENÚ */
+  .menu-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .category {
+    margin-bottom: 5rem;
+    scroll-margin-top: 200px;
+  }
+
+  .category-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .category-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .category-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+  }
+
+  .category-subtitle {
+    font-style: italic;
+    color: var(--gray);
+    font-size: 1.1rem;
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .item-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .item-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--yellow), var(--green));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  }
+  .item-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .item-name {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.3;
+    flex: 1;
+  }
+
+  .item-price {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--green);
+    white-space: nowrap;
+  }
+
+  .item-prices {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+  }
+  .item-prices span { 
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+  }
+
+  .item-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--gray);
+    margin-bottom: 0.75rem;
+  }
+
+  .item-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+  }
+
+  .tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.3rem 0.7rem;
+    border-radius: 12px;
+    border: 1.5px solid;
+  }
+  .tag.vegan { 
+    background: #E8F5E9; 
+    color: #2E7D32; 
+    border-color: #81C784;
+  }
+  .tag.traditional { 
+    background: #FFF3E0; 
+    color: #E65100; 
+    border-color: #FFB74D;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: white;
+    border-radius: 24px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .modal-header {
+    background: linear-gradient(135deg, var(--yellow), var(--yellow-light));
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .modal-close:hover { 
+    transform: rotate(90deg) scale(1.1);
+    background: var(--green);
+    color: white;
+  }
+
+  .modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-body {
+    padding: 2rem;
+  }
+
+  .modal-name {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+  }
+
+  .modal-price {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-desc {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* EMPTY */
+  .empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--gray);
+    font-size: 1.2rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    color: white;
+    text-align: center;
+    padding: 2.5rem 2rem;
+  }
+  footer .logo {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  footer .ig {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.1rem;
+    color: var(--yellow);
+    margin-top: 0.5rem;
+  }
+  footer .delivery {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: var(--green-light);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .item-card { animation: fadeIn 0.5s ease backwards; }
+  .item-card:nth-child(1) { animation-delay: 0.05s; }
+  .item-card:nth-child(2) { animation-delay: 0.1s; }
+  .item-card:nth-child(3) { animation-delay: 0.15s; }
+  .item-card:nth-child(4) { animation-delay: 0.2s; }
+  .item-card:nth-child(5) { animation-delay: 0.25s; }
+  .item-card:nth-child(6) { animation-delay: 0.3s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .hero-content { padding: 0 1rem; }
+    .control-bar { padding: 0.75rem 1rem; }
+    .filter-chip { font-size: 0.8rem; padding: 0.5rem 1rem; }
+    .items-grid { grid-template-columns: 1fr; }
+    .modal { border-radius: 20px 20px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">@frittes.maison.oficial</div>
+    <h1 class="hero-logo">FRITTES</h1>
+    <div class="hero-subtitle">maison</div>
+    <div class="hero-badge">🌱 BREADGAN vegan</div>
+    <a href="#menu" class="hero-cta">Ver Menú 🍟</a>
+    <div class="hero-delivery">
+      Delivery: <a href="tel:+56935204723">+569 3520 4723</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTROL BAR -->
+<div class="control-bar" id="menu">
+  <div class="control-inner">
+    <div class="search-row">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar plato, ingrediente...">
+      </div>
+      <div class="filters" id="filters">
+        <button class="filter-chip active" data-filter="all">Todos</button>
+        <button class="filter-chip" data-filter="vegan">🌱 Vegano</button>
+        <button class="filter-chip" data-filter="traditional">🍖 Tradicional</button>
+      </div>
+    </div>
+    <nav class="category-tabs" id="catTabs"></nav>
+  </div>
+</div>
+
+<!-- MENÚ -->
+<main class="menu-wrapper" id="menuContent"></main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">FRITTES · maison</div>
+  <div class="ig">@frittes.maison.oficial</div>
+  <div class="delivery">🛵 Delivery al +569 3520 4723</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-icon" id="modalIcon">🍔</div>
+    </div>
+    <div class="modal-body">
+      <h3 class="modal-name" id="modalName"></h3>
+      <div class="modal-price" id="modalPrice"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-tags" id="modalTags"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// DATOS DEL MENÚ (simplificado - las versiones veggie las combino con tags)
+const menuData = [
+  {
+    id: 'compartir',
+    title: 'Para Compartir',
+    icon: '🍟',
+    items: [
+      { name: 'Nuggets de Pollo', prices: { '6 Unidades': 2500, '12 Unidades': 4500, '18 Unidades': 6000 }, tags: ['traditional'] },
+      { name: 'Aros de Cebolla', prices: { '6 Unidades': 2500, '12 Unidades': 4500, '18 Unidades': 6000 }, desc: 'Crujientes aros de cebolla rebozados.', tags: ['vegan'] },
+      { name: 'Salchipapas Tradicional', price: 4500, desc: 'El clásico de siempre: papas fritas con salchichas.', tags: ['traditional'] },
+      { name: 'Salchipapas Vegana', price: 4500, desc: 'Versión vegana con vienesa de soya.', tags: ['vegan'] },
+      { name: 'Arrollados Primavera (4 unidades)', price: 4500, desc: 'Arrollados fritos rellenos de vegetales.', tags: ['vegan'] },
+      { name: 'Baozi', price: 1500, desc: 'Panecillo al vapor relleno de carne de soya o verduras.', tags: ['vegan'] }
+    ]
+  },
+  {
+    id: 'burritos',
+    title: 'Burritos',
+    icon: '🌯',
+    items: [
+      { name: 'Premium Carne Mechada', price: 7200, desc: 'Carne mechada, guacamole, choclo, cebolla caramelizada, tocino.', tags: ['traditional'] },
+      { name: 'Premium Pollo Crispy', price: 7200, desc: 'Trozos de pollo crispy, guacamole, aceitunas, pimentón, tocino.', tags: ['traditional'] },
+      { name: 'Premium Tofu', price: 7200, desc: 'Tofu, pimentón, poroto verde, guacamole, choclo.', tags: ['vegan'] },
+      { name: 'Premium Seitán', price: 7200, desc: 'Seitán grillado, tomate, cebolla caramelizada, aceitunas, poroto negro.', tags: ['vegan'] },
+      { name: 'Arma tu Burrito (3 Topping + Salsa)', price: 4800, desc: 'Elige tus ingredientes favoritos.', tags: [] },
+      { name: 'Arma tu Burrito (4 Topping + Salsa)', price: 5800, desc: 'Elige tus ingredientes favoritos.', tags: [] },
+      { name: 'Arma tu Burrito (5 Topping + Salsa)', price: 6800, desc: 'Elige tus ingredientes favoritos.', tags: [] }
+    ]
+  },
+  {
+    id: 'papas',
+    title: 'Papas Fritas',
+    icon: '🍟',
+    items: [
+      { name: 'Papas M Sola', price: 2000, tags: ['vegan'] },
+      { name: 'Papas M 1 Topping', price: 3000, desc: 'Elige tu topping favorito.', tags: [] },
+      { name: 'Papas M 2 Topping', price: 4000, desc: 'Combina 2 toppings.', tags: [] },
+      { name: 'Papas L Sola', price: 3000, tags: ['vegan'] },
+      { name: 'Papas L 1 Topping', price: 4500, desc: 'Elige tu topping favorito.', tags: [] },
+      { name: 'Papas L 2 Topping', price: 5500, desc: 'Combina 2 toppings.', tags: [] },
+      { name: 'Papas XL Sola', price: 4000, tags: ['vegan'] },
+      { name: 'Papas XL 1 Topping', price: 5500, desc: 'Elige tu topping favorito.', tags: [] },
+      { name: 'Papas XL 2 Topping', price: 6500, desc: 'Combina 2 toppings.', tags: [] }
+    ]
+  },
+  {
+    id: 'hotdog',
+    title: 'Hot Dogs',
+    icon: '🌭',
+    items: [
+      { name: 'Completo (Vienesa)', price: 3400, desc: 'Tomate, chucrut, americana, mayonesa.', tags: ['traditional'] },
+      { name: 'Completo (Lomito)', price: 4800, desc: 'Tomate, chucrut, americana, mayonesa.', tags: ['traditional'] },
+      { name: 'Italiano (Vienesa)', price: 3600, desc: 'Tomate, palta, mayonesa.', tags: ['traditional'] },
+      { name: 'Italiano (Lomito)', price: 5000, desc: 'Tomate, palta, mayonesa.', tags: ['traditional'] },
+      { name: 'Chacarero (Vienesa)', price: 3400, desc: 'Tomate, poroto verde, ají, mayonesa.', tags: ['traditional'] },
+      { name: 'Chacarero (Lomito)', price: 4800, desc: 'Tomate, poroto verde, ají, mayonesa.', tags: ['traditional'] },
+      { name: 'Luco (Vienesa)', price: 3200, desc: 'Queso, mayonesa.', tags: ['traditional'] },
+      { name: 'Luco (Lomito)', price: 4600, desc: 'Queso, mayonesa.', tags: ['traditional'] },
+      { name: 'Brasileiro (Vienesa)', price: 3600, desc: 'Queso, palta, mayonesa.', tags: ['traditional'] },
+      { name: 'Brasileiro (Lomito)', price: 5000, desc: 'Queso, palta, mayonesa.', tags: ['traditional'] },
+      { name: 'Dinámico (Vienesa)', price: 3800, desc: 'Tomate, palta, americana, chucrut, mayonesa.', tags: ['traditional'] },
+      { name: 'Dinámico (Lomito)', price: 5200, desc: 'Tomate, palta, americana, chucrut, mayonesa.', tags: ['traditional'] },
+      { name: 'Frittes (Vienesa)', price: 4300, desc: 'Queso, tocino, aros de cebolla, salsa BBQ.', tags: ['traditional'] },
+      { name: 'Frittes (Lomito)', price: 5700, desc: 'Queso, tocino, aros de cebolla, salsa BBQ.', tags: ['traditional'] },
+      { name: 'A lo Pobre (Vienesa)', price: 4300, desc: 'Cebolla caramelizada, papas fritas, huevo.', tags: ['traditional'] },
+      { name: 'A lo Pobre (Lomito)', price: 5700, desc: 'Cebolla caramelizada, papas fritas, huevo.', tags: ['traditional'] },
+      { name: 'Rancagüino (Vienesa)', price: 4800, desc: 'Tocino, queso cheddar, guacamole, aceitunas.', tags: ['traditional'] },
+      { name: 'Rancagüino (Lomito)', price: 6200, desc: 'Tocino, queso cheddar, guacamole, aceitunas.', tags: ['traditional'] },
+      { name: 'Dominga (Vienesa)', price: 4800, desc: 'Queso, cebolla caramelizada, guacamole, mayonesa.', tags: ['traditional'] },
+      { name: 'Dominga (Lomito)', price: 6200, desc: 'Queso, cebolla caramelizada, guacamole, mayonesa.', tags: ['traditional'] },
+      { name: 'Criollo (Vienesa)', price: 5000, desc: 'Palta, cebolla caramelizada, champiñón, queso, mayonesa.', tags: ['traditional'] },
+      { name: 'Criollo (Lomito)', price: 6400, desc: 'Palta, cebolla caramelizada, champiñón, queso, mayonesa.', tags: ['traditional'] }
+    ]
+  },
+  {
+    id: 'hotdog-veggie',
+    title: 'Hot Dogs Veggie',
+    icon: '🌱🌭',
+    items: [
+      { name: 'Completo Veggie (Seitán)', price: 4800, desc: 'Tomate, chucrut, americana, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Italiano Veggie (Tofu)', price: 5600, desc: 'Tomate, palta, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Chacarero Veggie (Seitán)', price: 4800, desc: 'Tomate, poroto verde, ají, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Luco Veggie (Vienesa)', price: 3200, desc: 'Queso vegano, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Brasileño Veggie (Tofu)', price: 5600, desc: 'Queso vegano, palta, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Dinámico Veggie (Seitán)', price: 5200, desc: 'Tomate, palta, americana, chucrut, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Frittes Veggie (Tofu)', price: 6300, desc: 'Queso vegano, guacamole, aros de cebolla, salsa BBQ.', tags: ['vegan'] },
+      { name: 'A lo Pobre Veggie (Seitán)', price: 5700, desc: 'Cebolla caramelizada, papas fritas, champiñón.', tags: ['vegan'] },
+      { name: 'Rancagüino Veggie (Tofu)', price: 6800, desc: 'Champiñón, queso cheddar vegano, guacamole, aceitunas.', tags: ['vegan'] },
+      { name: 'Dominga Veggie (Seitán)', price: 6200, desc: 'Queso vegano, cebolla caramelizada, guacamole, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Criollo Veggie (Tofu)', price: 7000, desc: 'Palta, cebolla caramelizada, champiñón, queso vegano, mayonesa vegana.', tags: ['vegan'] }
+    ]
+  },
+  {
+    id: 'sandwich',
+    title: 'Sandwich',
+    icon: '🥪',
+    items: [
+      { name: 'Completo Sandwich (Lomito)', price: 6800, desc: 'Tomate, chucrut, americana, mayonesa.', tags: ['traditional'] },
+      { name: 'Italiano Sandwich (Churrasco)', price: 7600, desc: 'Tomate, palta, mayonesa.', tags: ['traditional'] },
+      { name: 'Chacarero Sandwich (Hamburguesa)', price: 7600, desc: 'Tomate, poroto verde, ají, mayonesa.', tags: ['traditional'] },
+      { name: 'Luco Sandwich (Lomito)', price: 6600, desc: 'Queso, mayonesa.', tags: ['traditional'] },
+      { name: 'Brasileño Sandwich (Pollo Crispy)', price: 7000, desc: 'Queso, palta, mayonesa.', tags: ['traditional'] },
+      { name: 'Dinámico Sandwich (Mechada)', price: 8400, desc: 'Tomate, palta, americana, chucrut, mayonesa.', tags: ['traditional'] },
+      { name: 'Frittes Sandwich (Churrasco)', price: 8300, desc: 'Queso, tocino, aros de cebolla, salsa BBQ.', tags: ['traditional'] },
+      { name: 'A lo Pobre Sandwich (Lomito)', price: 7700, desc: 'Cebolla caramelizada, papas fritas, huevo.', tags: ['traditional'] },
+      { name: 'Rancagüino Sandwich (Hamburguesa)', price: 9000, desc: 'Tocino, queso cheddar, guacamole, aceitunas.', tags: ['traditional'] },
+      { name: 'Dominga Sandwich (Pollo Crispy)', price: 8200, desc: 'Queso, cebolla caramelizada, guacamole, mayonesa.', tags: ['traditional'] },
+      { name: 'Criollo Sandwich (Mechada)', price: 9400, desc: 'Palta, cebolla caramelizada, champiñón, queso, mayonesa.', tags: ['traditional'] }
+    ]
+  },
+  {
+    id: 'sandwich-veggie',
+    title: 'Sandwich Veggie',
+    icon: '🌱🥪',
+    items: [
+      { name: 'Completo Sandwich Veggie (Seitán)', price: 6800, desc: 'Tomate, chucrut, americana, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Italiano Sandwich Veggie (Not Burguer)', price: 7600, desc: 'Tomate, palta, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Chacarero Sandwich Veggie (Tofu)', price: 6900, desc: 'Tomate, poroto verde, ají, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Luco Sandwich Veggie (Seitán)', price: 6400, desc: 'Queso vegano, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Brasileño Sandwich Veggie (Not Pollo)', price: 7000, desc: 'Queso vegano, palta, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Dinámico Sandwich Veggie (Not Pollo)', price: 7200, desc: 'Tomate, palta, americana, chucrut, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Frittes Sandwich Veggie (Tofu)', price: 8300, desc: 'Queso vegano, guacamole, aros de cebolla, salsa BBQ.', tags: ['vegan'] },
+      { name: 'A lo Pobre Sandwich Veggie (Not Burguer)', price: 8300, desc: 'Cebolla caramelizada, papas fritas, champiñón.', tags: ['vegan'] },
+      { name: 'Rancagüino Sandwich Veggie (Not Burguer)', price: 8800, desc: 'Champiñón, queso cheddar vegano, guacamole, aceitunas.', tags: ['vegan'] },
+      { name: 'Dominga Sandwich Veggie (Tofu)', price: 8800, desc: 'Queso vegano, cebolla caramelizada, guacamole, mayonesa vegana.', tags: ['vegan'] },
+      { name: 'Criollo Sandwich Veggie (Not Pollo)', price: 8400, desc: 'Palta, cebolla caramelizada, champiñón, queso vegano, mayonesa vegana.', tags: ['vegan'] }
+    ]
+  },
+  {
+    id: 'chorrillanas',
+    title: 'Chorrillanas',
+    icon: '🍽️',
+    items: [
+      { name: 'Chorrillana Clásica Tradicional', price: 15000, desc: 'Churrasco o lomito, cebolla caramelizada, chorizo, huevos fritos.', tags: ['traditional'] },
+      { name: 'Chorrillana Clásica Monster', price: 20000, desc: 'Versión XL de la clásica.', tags: ['traditional'] },
+      { name: 'Chorrillana Vegetariana Tradicional', price: 14000, desc: 'Queso vegano, aceitunas, choclo, champiñón.', tags: ['vegan'] },
+      { name: 'Chorrillana Vegetariana Monster', price: 18000, desc: 'Versión XL vegetariana.', tags: ['vegan'] },
+      { name: 'Chorrillana Alemana Tradicional', price: 15000, desc: 'Churrasco o lomito, chorizo, tocino, palta.', tags: ['traditional'] },
+      { name: 'Chorrillana Alemana Monster', price: 20000, desc: 'Versión XL alemana.', tags: ['traditional'] },
+      { name: 'Chorrillana Clásica Veggie Tradicional', price: 15000, desc: 'Seitán, choclo, champiñón, tofu.', tags: ['vegan'] },
+      { name: 'Chorrillana Clásica Veggie Monster', price: 20000, desc: 'Versión XL veggie.', tags: ['vegan'] },
+      { name: 'Chorrillana Senegal Tradicional', price: 15000, desc: 'Tofu pimentón, aceitunas, queso cheddar vegano.', tags: ['vegan'] },
+      { name: 'Chorrillana Senegal Monster', price: 20000, desc: 'Versión XL Senegal.', tags: ['vegan'] }
+    ]
+  },
+  {
+    id: 'bebestibles',
+    title: 'Bebestibles',
+    icon: '🥤',
+    items: [
+      { name: 'Jugo Natural', price: 3000, desc: 'Jugos frescos de frutas.', tags: ['vegan'] },
+      { name: 'Latas 350ml', price: 1800, desc: 'Bebidas y jugos en lata.', tags: [] },
+      { name: 'Agua con/sin Gas', price: 1300, tags: ['vegan'] },
+      { name: 'Té/Café Nescafé', price: 500, tags: ['vegan'] },
+      { name: 'Café Variedades', price: 2000, desc: 'Café expresso, americano, capuccino, etc.', tags: ['vegan'] }
+    ]
+  }
+];
+
+// FORMATO PRECIO
+function fmt(n) { return '$' + n.toLocaleString('es-CL'); }
+
+// RENDER
+const menuContent = document.getElementById('menuContent');
+const catTabs = document.getElementById('catTabs');
+
+function renderMenu() {
+  menuContent.innerHTML = '';
+  catTabs.innerHTML = '';
+
+  menuData.forEach(cat => {
+    const tab = document.createElement('a');
+    tab.href = '#cat-' + cat.id;
+    tab.className = 'cat-tab';
+    tab.textContent = cat.icon + ' ' + cat.title;
+    catTabs.appendChild(tab);
+
+    const section = document.createElement('section');
+    section.className = 'category';
+    section.id = 'cat-' + cat.id;
+    section.innerHTML = `
+      <header class="category-header">
+        <div class="category-icon">${cat.icon}</div>
+        <h2 class="category-title">${cat.title}</h2>
+      </header>
+      <div class="items-grid" data-grid="${cat.id}"></div>
+    `;
+    menuContent.appendChild(section);
+
+    const grid = section.querySelector('.items-grid');
+    cat.items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'item-card';
+      card.dataset.tags = (item.tags || []).join(',');
+      card.dataset.name = item.name.toLowerCase();
+      card.dataset.desc = (item.desc || '').toLowerCase();
+      card.dataset.icon = cat.icon;
+
+      let priceHTML;
+      if (item.prices) {
+        priceHTML = '<div class="item-price item-prices">' +
+          Object.entries(item.prices).map(([k,v]) => `<span>${k}: ${fmt(v)}</span>`).join('') +
+          '</div>';
+      } else {
+        priceHTML = `<div class="item-price">${fmt(item.price)}</div>`;
+      }
+
+      const tagsHTML = (item.tags || []).map(t => `<span class="tag ${t}">${t === 'vegan' ? '🌱 Vegano' : '🍖 Tradicional'}</span>`).join('');
+
+      card.innerHTML = `
+        <div class="item-header">
+          <h3 class="item-name">${item.name}</h3>
+          ${priceHTML}
+        </div>
+        ${item.desc ? `<p class="item-desc">${item.desc}</p>` : ''}
+        ${tagsHTML ? `<div class="item-tags">${tagsHTML}</div>` : ''}
+      `;
+
+      card.addEventListener('click', () => openModal(item, cat.icon));
+      grid.appendChild(card);
+    });
+  });
+}
+
+// FILTROS
+let activeFilter = 'all';
+
+function applyFilters() {
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  let totalVisible = 0;
+
+  document.querySelectorAll('.category').forEach(section => {
+    let visibleInSection = 0;
+    section.querySelectorAll('.item-card').forEach(card => {
+      const tags = card.dataset.tags.split(',');
+      const name = card.dataset.name;
+      const desc = card.dataset.desc;
+
+      const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
+      const matchesQuery = !query || name.includes(query) || desc.includes(query);
+
+      const show = matchesFilter && matchesQuery;
+      card.style.display = show ? '' : 'none';
+      if (show) visibleInSection++;
+    });
+
+    section.style.display = visibleInSection > 0 ? '' : 'none';
+    totalVisible += visibleInSection;
+  });
+
+  let emptyEl = document.getElementById('empty-state');
+  if (totalVisible === 0) {
+    if (!emptyEl) {
+      emptyEl = document.createElement('div');
+      emptyEl.id = 'empty-state';
+      emptyEl.className = 'empty';
+      emptyEl.innerHTML = '🤷 No encontramos platos con esos criterios';
+      menuContent.appendChild(emptyEl);
+    }
+    emptyEl.style.display = '';
+  } else if (emptyEl) {
+    emptyEl.style.display = 'none';
+  }
+}
+
+document.getElementById('filters').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-chip');
+  if (!btn) return;
+  document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  applyFilters();
+});
+
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+// MODAL
+function openModal(item, icon) {
+  document.getElementById('modalIcon').textContent = icon;
+  document.getElementById('modalName').textContent = item.name;
+
+  let priceText;
+  if (item.prices) {
+    priceText = Object.entries(item.prices).map(([k,v]) => `${k}: ${fmt(v)}`).join(' · ');
+  } else {
+    priceText = fmt(item.price);
+  }
+  document.getElementById('modalPrice').textContent = priceText;
+  document.getElementById('modalDesc').textContent = item.desc || '';
+
+  const tagsEl = document.getElementById('modalTags');
+  tagsEl.innerHTML = (item.tags || []).map(t => 
+    `<span class="tag ${t}">${t === 'vegan' ? '🌱 Vegano' : '🍖 Tradicional'}</span>`
+  ).join('');
+
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target.closest('.modal') && !e.target.classList.contains('modal-overlay')) return;
+  document.getElementById('modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// SCROLL SPY
+function setupScrollSpy() {
+  const sections = document.querySelectorAll('.category');
+  const tabs = document.querySelectorAll('.cat-tab');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id.replace('cat-', '');
+        tabs.forEach(t => {
+          t.classList.toggle('active', t.getAttribute('href') === '#cat-' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+}
+
+// INIT
+renderMenu();
+setupScrollSpy();
+</script>
+
+</body>
+</html>
