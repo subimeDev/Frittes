@@ -1,0 +1,9 @@
+{
+  "name": "frittes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frittes static site server for Railway",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
